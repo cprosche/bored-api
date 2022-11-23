@@ -1,33 +1,33 @@
-import { useState } from "react";
-import { BoredApiResponse } from "../pages";
+import { useEffect, useState } from "react";
+import { BoredApiResponse, participantOptions } from "../pages";
 
 interface IProps {
   activity: BoredApiResponse;
 }
 
 const Activity = ({ activity }: IProps) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(activity.showDetails);
+
+  useEffect(() => {
+    setShowDetails(activity.showDetails);
+  }, [activity.showDetails]);
+
   return (
-    <div className="border rounded p-5 mb-3 w-full">
-      <div>
-        <div className="text-xl">{activity.activity}</div>
-        <div
-          className="cursor-pointer underline text-blue-500 hover:text-blue-600"
-          onClick={() => setShowDetails(!showDetails)}
-        >
-          {showDetails ? "Hide" : "Show"} details
-        </div>
-      </div>
+    <div
+      onClick={() => setShowDetails(!showDetails)}
+      className="border border-custom-yellow rounded p-5 mb-3 w-full bg-white cursor-pointer"
+    >
+      <div className="text-xl font-bold">{activity.activity}</div>
       <div
         className={`transition-all overflow-hidden ${
-          showDetails ? "h-[100px] mt-3" : "h-0"
+          showDetails ? "h-[120px] mt-3" : "h-0"
         }`}
       >
         {activity.link && (
           <div>
             Link:{" "}
             <a
-              className="transition-colors text-blue-500 hover:text-blue-600 underline"
+              className="transition-colors text-custom-blue hover:text-blue-600 underline"
               href={activity.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -36,9 +36,9 @@ const Activity = ({ activity }: IProps) => {
             </a>
           </div>
         )}
-        <div>Number of Participants: {activity.participants}</div>
+        <div className="capitalize">Type: {activity.type}</div>
+        <div>{participantOptions[activity.participants].name}</div>
         <div>Relative Price: {activity.price}</div>
-        <div>Type: {activity.type}</div>
         <div>Accessibility Rating: {activity.accessibility}</div>
       </div>
     </div>

@@ -9,9 +9,73 @@ export interface BoredApiResponse {
   link: string;
   key: string;
   accessibility: number;
+  showDetails: boolean;
 }
 
-// TODO: add dynamic showing and hiding of details on get new activity
+export const participantOptions = [
+  {
+    name: "Any number of participants",
+    value: "",
+  },
+  {
+    name: "1 participant",
+    value: "1",
+  },
+  {
+    name: "2 participants",
+    value: "2",
+  },
+  {
+    name: "3 participants",
+    value: "3",
+  },
+  {
+    name: "4 participants",
+    value: "4",
+  },
+  {
+    name: "5 participants",
+    value: "5",
+  },
+  {
+    name: "8 participants",
+    value: "8",
+  },
+];
+
+export const priceOptions = [
+  {
+    name: "Any price",
+    min: 0,
+    max: 1,
+  },
+  {
+    name: "Free",
+    min: 0,
+    max: 0,
+  },
+  {
+    name: "$",
+    min: .01,
+    max: .25,
+  },
+  {
+    name: "$$",
+    min: .26,
+    max: .5,
+  },
+  {
+    name: "$$$",
+    min: .51,
+    max: .75,
+  },
+  {
+    name: "$$$$",
+    min: .76,
+    max: 1,
+  },
+];
+
 // TODO: responsive
 // TODO: optional: add api error message
 // TODO: optional: improve styling & UI
@@ -28,34 +92,6 @@ const Home = () => {
     "Relaxation",
     "Music",
     "Busywork",
-  ];
-
-  const priceOptions = [
-    {
-      name: "Any price",
-      min: 0,
-      max: 1,
-    },
-    {
-      name: "$",
-      min: 0,
-      max: .25,
-    },
-    {
-      name: "$$",
-      min: .26,
-      max: .5,
-    },
-    {
-      name: "$$$",
-      min: .51,
-      max: .75,
-    },
-    {
-      name: "$$$$",
-      min: .76,
-      max: 1,
-    },
   ];
 
   const a11yOptions = [
@@ -81,45 +117,14 @@ const Home = () => {
     },
   ];
 
-  const participantOptions = [
-    {
-      name: "Any number of participants",
-      value: "",
-    },
-    {
-      name: "1 participant",
-      value: "1",
-    },
-    {
-      name: "2 participants",
-      value: "2",
-    },
-    {
-      name: "3 participants",
-      value: "3",
-    },
-    {
-      name: "4 participants",
-      value: "4",
-    },
-    {
-      name: "5 participants",
-      value: "5",
-    },
-    {
-      name: "8 participants",
-      value: "8",
-    },
-  ];
-
   const [selectedType, setSelectedType] = useState("");
   const [priceOptionIndex, setPriceOptionIndex] = useState(0);
   const [a11yOptionIndex, setA11yOptionIndex] = useState(0);
   const [participantOptionIndex, setParticipantOptionIndex] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
 
-  const getActivity = () => {
-    fetch(
+  const getActivity = async () => {
+    await fetch(
       `http://www.boredapi.com/api/activity/?type=${selectedType.toLowerCase()}&participants=${
         participantOptions[participantOptionIndex].value
       }&minprice=${priceOptions[priceOptionIndex].min}&maxprice=${
@@ -133,7 +138,12 @@ const Home = () => {
         if (resJson.error?.length > 0) {
           setShowWarning(true);
         } else {
-          setActivityList([...activityList, resJson]);
+          let copy = [...activityList];
+          for (let a of copy) {
+            a.showDetails = false;
+          }
+          resJson.showDetails = true;
+          setActivityList([...copy, resJson]);
         }
       })
       .catch((err) => console.log(err));
@@ -144,8 +154,8 @@ const Home = () => {
   }, [selectedType, priceOptionIndex, a11yOptionIndex, participantOptionIndex]);
 
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-3">
-      <div className="text-4xl font-bold mb-5 text-center">
+    <div className="flex flex-col justify-start items-center py-10 px-3 min-h-screen bg-custom-white">
+      <div className="text-4xl text-custom-blue font-bold mb-5 text-center">
         Bored? Get a random activity to cure that boredom!
       </div>
       <div className="text-center">
@@ -193,13 +203,13 @@ const Home = () => {
         </div>
       )}
       <button
-        className="transition-colors border border-green-600 rounded bg-green-600 hover:bg-white text-white hover:text-green-600 px-4 py-2 mb-3"
+        className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue hover:bg-white hover:text-custom-blue px-6 py-3 mb-3"
         onClick={getActivity}
       >
-        Get Activity
+        Cure Boredom
       </button>
-      {activityList.length > 0
-        ? (
+      {activityList.length > 0 &&
+        (
           <div className="flex flex-col-reverse max-w-[500px] w-full">
             {activityList.map((activity, index) => (
               <Activity
@@ -208,8 +218,7 @@ const Home = () => {
               />
             ))}
           </div>
-        )
-        : <div>No activities added</div>}
+        )}
     </div>
   );
 };
