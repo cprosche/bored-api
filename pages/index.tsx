@@ -128,7 +128,7 @@ const Home = () => {
   const getActivity = async () => {
     setIsLoading(true);
     await fetch(
-      `http://www.boredapi.com/api/activity/?type=${selectedType.toLowerCase()}&participants=${
+      `https://www.boredapi.com/api/activity/?type=${selectedType.toLowerCase()}&participants=${
         participantOptions[participantOptionIndex].value
       }&minprice=${priceOptions[priceOptionIndex].min}&maxprice=${
         priceOptions[priceOptionIndex].max
