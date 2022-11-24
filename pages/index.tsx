@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Activity from "../components/Activity";
+import Spinner from "../components/Spinner";
 
 export interface BoredApiResponse {
   activity: string;
@@ -76,6 +77,29 @@ export const priceOptions = [
   },
 ];
 
+export const a11yOptions = [
+  {
+    name: "Any accessibility",
+    min: 0,
+    max: 1,
+  },
+  {
+    name: "Very accessible",
+    min: 0,
+    max: .33,
+  },
+  {
+    name: "Somewhat accessible",
+    min: .34,
+    max: .66,
+  },
+  {
+    name: "Least accessible",
+    min: .67,
+    max: 1,
+  },
+];
+
 // TODO: responsive
 // TODO: optional: add api error message
 // TODO: optional: improve styling & UI
@@ -94,36 +118,15 @@ const Home = () => {
     "Busywork",
   ];
 
-  const a11yOptions = [
-    {
-      name: "Any accessibility",
-      min: 0,
-      max: 1,
-    },
-    {
-      name: "Very accessible",
-      min: 0,
-      max: .33,
-    },
-    {
-      name: "Somewhat accessible",
-      min: .34,
-      max: .66,
-    },
-    {
-      name: "Least accessible",
-      min: .67,
-      max: 1,
-    },
-  ];
-
   const [selectedType, setSelectedType] = useState("");
   const [priceOptionIndex, setPriceOptionIndex] = useState(0);
   const [a11yOptionIndex, setA11yOptionIndex] = useState(0);
   const [participantOptionIndex, setParticipantOptionIndex] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getActivity = async () => {
+    setIsLoading(true);
     await fetch(
       `http://www.boredapi.com/api/activity/?type=${selectedType.toLowerCase()}&participants=${
         participantOptions[participantOptionIndex].value
@@ -145,8 +148,12 @@ const Home = () => {
           resJson.showDetails = true;
           setActivityList([...copy, resJson]);
         }
+        setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -154,7 +161,7 @@ const Home = () => {
   }, [selectedType, priceOptionIndex, a11yOptionIndex, participantOptionIndex]);
 
   return (
-    <div className="flex flex-col justify-start items-center py-10 px-3 min-h-screen bg-custom-white">
+    <div className="flex flex-col justify-start items-center py-10 px-3 min-h-[110vh] bg-custom-white">
       <div className="text-4xl text-custom-blue font-bold mb-5 text-center">
         Bored? Get a random activity to cure that boredom!
       </div>
@@ -202,12 +209,21 @@ const Home = () => {
           No activity available for these options!
         </div>
       )}
-      <button
-        className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue hover:bg-white hover:text-custom-blue px-6 py-3 mb-3"
-        onClick={getActivity}
-      >
-        Cure Boredom
-      </button>
+      {isLoading
+        ? (
+          <div className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue px-[48px] py-3 mb-3">
+            <Spinner />
+          </div>
+        )
+        : (
+          <button
+            className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue hover:bg-white hover:text-custom-blue px-6 py-3 mb-3 disabled:opacity-70 disabled:hover:bg-custom-blue disabled:hover:text-white"
+            onClick={getActivity}
+            disabled={isLoading || showWarning}
+          >
+            Cure Boredom
+          </button>
+        )}
       {activityList.length > 0 &&
         (
           <div className="flex flex-col-reverse max-w-[500px] w-full">
