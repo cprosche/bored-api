@@ -1,4 +1,4 @@
-# Bored Api UI
+# [Bored Api UI](https://bored-api-two.vercel.app/)
 This project is built to be a UI for [Bored API](https://www.boredapi.com/documentation) activities.
 
 You can use it get a random activity to do if you are bored. 
