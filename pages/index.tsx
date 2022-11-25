@@ -161,8 +161,8 @@ const Home = () => {
   }, [selectedType, priceOptionIndex, a11yOptionIndex, participantOptionIndex]);
 
   return (
-    <div className="flex flex-col justify-start items-center py-5 sm:py-10 px-3 min-h-[110vh] bg-custom-white">
-      <div className="text-3xl md:text-4xl text-custom-blue font-bold mb-5 text-center">
+    <div className="flex flex-col justify-start items-center py-5 sm:py-10 px-3 min-h-[110vh] bg-custom-secondary">
+      <div className="text-3xl md:text-4xl text-custom-primary font-bold mb-5 text-center">
         Bored? Get a random activity to cure that boredom!
       </div>
       <div className="text-center">
@@ -211,13 +211,13 @@ const Home = () => {
       )}
       {isLoading
         ? (
-          <div className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue px-[48px] py-3 mb-3">
+          <div className="transition-colors text-xl border border-custom-primary text-white rounded bg-custom-primary px-[48px] py-3 mb-3">
             <Spinner />
           </div>
         )
         : (
           <button
-            className="transition-colors text-xl border border-custom-blue text-white rounded bg-custom-blue hover:bg-white hover:text-custom-blue px-6 py-3 mb-3 disabled:opacity-70 disabled:hover:bg-custom-blue disabled:hover:text-white"
+            className="transition-colors text-xl border border-custom-primary text-white rounded bg-custom-primary hover:bg-white hover:text-custom-primary px-6 py-3 mb-3 disabled:opacity-70 disabled:hover:bg-custom-primary disabled:hover:text-white"
             onClick={getActivity}
             disabled={isLoading || showWarning}
           >
