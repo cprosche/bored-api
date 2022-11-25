@@ -1,5 +1,5 @@
-# [Bored Api UI](https://bored-api-two.vercel.app/)
-This project is deployed on Vercel: [bored-api-two.vercel.app](https://bored-api-two.vercel.app/)
+# [Bored Api UI](https://bored-api-cprosche.vercel.app/)
+This project is deployed on Vercel: [bored-api-cprosche.vercel.app](https://bored-api-cprosche.vercel.app/)
 
 This project is built to be a UI for [Bored API](https://www.boredapi.com/documentation) activities.
 
