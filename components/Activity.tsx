@@ -42,7 +42,7 @@ const Activity = ({ activity }: IProps) => {
   return (
     <div
       onClick={() => setShowDetails(!showDetails)}
-      className="border border-custom-primary rounded p-5 mb-3 w-full bg-white cursor-pointer text-custom-primary"
+      className="border border-custom-primary rounded p-5 mb-3 w-full bg-yellow-50 cursor-pointer text-custom-primary"
     >
       <div className="text-xl font-bold">{activity.activity}</div>
       <div

@@ -4,7 +4,7 @@
 
 @layer base {
     select {
-        @apply border text-custom-primary border-custom-primary rounded py-2 px-4 bg-white;
+        @apply border text-custom-primary border-custom-primary rounded py-2 px-4 bg-yellow-50;
     }
     .lds-ellipsis {
         display: inline-block;

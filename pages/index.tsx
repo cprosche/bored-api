@@ -217,7 +217,7 @@ const Home = () => {
         )
         : (
           <button
-            className="transition-colors text-xl border border-custom-primary text-white rounded bg-custom-primary hover:bg-white hover:text-custom-primary px-6 py-3 mb-3 disabled:opacity-70 disabled:hover:bg-custom-primary disabled:hover:text-white"
+            className="transition-colors text-xl border border-custom-primary text-white rounded bg-custom-primary hover:bg-yellow-50 hover:text-custom-primary px-6 py-3 mb-3 disabled:opacity-70 disabled:hover:bg-custom-primary disabled:hover:text-white"
             onClick={getActivity}
             disabled={isLoading || showWarning}
           >
