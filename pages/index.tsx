@@ -161,8 +161,8 @@ const Home = () => {
   }, [selectedType, priceOptionIndex, a11yOptionIndex, participantOptionIndex]);
 
   return (
-    <div className="flex flex-col justify-start items-center py-10 px-3 min-h-[110vh] bg-custom-white">
-      <div className="text-4xl text-custom-blue font-bold mb-5 text-center">
+    <div className="flex flex-col justify-start items-center py-5 sm:py-10 px-3 min-h-[110vh] bg-custom-white">
+      <div className="text-3xl md:text-4xl text-custom-blue font-bold mb-5 text-center">
         Bored? Get a random activity to cure that boredom!
       </div>
       <div className="text-center">
