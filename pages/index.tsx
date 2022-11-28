@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Activity from "../components/Activity";
 import Spinner from "../components/Spinner";
@@ -235,6 +236,11 @@ const Home = () => {
             ))}
           </div>
         )}
+      <div className="transition-transform fixed left-2 bottom-2 bg-purple-50 rounded-full hover:scale-110">
+        <a className="" href="https://github.com/cprosche/bored-api" target="_blank" rel="noreferrer">
+          <Image src="/github-logo.png" width={40} height={40} alt={""} />
+        </a>
+      </div>
     </div>
   );
 };
