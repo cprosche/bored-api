@@ -1,9 +1,10 @@
 # [Bored Api UI](https://bored-api-cprosche.vercel.app/)
+
 This project is deployed on Vercel: [bored-api-cprosche.vercel.app](https://bored-api-cprosche.vercel.app/)
 
 This project is built to be a UI for [Bored API](https://www.boredapi.com/documentation) activities.
 
-You can use it get a random activity to do if you are bored. 
+You can use it get a random activity to do if you are bored.
 
 ## Getting Started
 
@@ -24,6 +25,5 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 It also uses TypeScript instead of JavaScript
 
 ### Styling
-This project is styled using [TailwindCSS](https://tailwindcss.com/docs/installation)
 
-### 
+This project is styled using [TailwindCSS](https://tailwindcss.com/docs/installation)
